@@ -110,7 +110,21 @@
   };
 
   // Produce a duplicate-free version of the array.
-  _.uniq = function(array, isSorted, iterator) {
+  _.uniq = function(array, isSorted, iterator = _.identity) {
+    var finalResult = [];
+    var iteratorResult = [];
+
+    _.each(array, function(element) {
+      var current = iterator(element);
+
+      if (!iteratorResult.includes(current)) {
+        finalResult.push(element);
+      }
+
+      iteratorResult.push(current);
+    });
+
+    return finalResult;
   };
 
 
